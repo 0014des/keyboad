@@ -1,0 +1,245 @@
+:root {
+  --key-bg: #222;
+  --key-active-bg: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+  --glow: rgba(255, 0, 255, 0.9);
+  --text-color: white;
+}
+
+body {
+  background: #111;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  user-select: none;
+}
+
+#effect-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  user-select: none;
+}
+
+#key-display {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  font-weight: bold;
+  color: #eee;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 0 0 8px #fff;
+  z-index: 1000;
+}
+
+.keyboard-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* メインキーボード */
+.keyboard {
+  max-width: 850px;
+}
+
+/* 行 */
+.row {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+/* サブラベル */
+.sub-label {
+  display: block;
+  font-size: 8px;
+  opacity: 0.7;
+  user-select: none;
+}
+
+/* 通常キー */
+.key {
+  background: var(--key-bg);
+  border-radius: 6px;
+  border: 1px solid #555;
+  color: var(--text-color);
+  padding: 0 12px;
+  margin-right: 6px;
+  text-align: center;
+  user-select: none;
+  font-weight: 600;
+  box-shadow: inset 0 -4px 0 #0006;
+  cursor: pointer;
+  min-width: 48px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.key:last-child {
+  margin-right: 0;
+}
+
+/* 小さいキー */
+.key.small, .nav-key {
+  min-width: 48px;
+  font-size: 12px;
+}
+
+/* 幅広キー */
+.key.wide {
+  min-width: 80px;
+}
+
+/* スペースバー */
+.key.extra-wide {
+  min-width: 180px;
+}
+
+/* CapsLockキーを普通の高さにする */
+.key[data-key="CapsLock"] {
+  min-width: 60px;
+  min-height: 40px; /* 普通キー高さに統一 */
+}
+
+/* Enterキー L字 */
+.enter-key {
+  position: relative;
+  width: 60px;
+  height: 90px;
+  background: var(--key-bg);
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: inset 0 -4px 0 #0006;
+  transition: background 0.3s;
+  margin-left: 6px;
+  user-select: none;
+}
+
+.enter-key.active {
+  background: var(--key-active-bg);
+  box-shadow: 0 0 15px var(--glow);
+  color: white;
+  text-shadow: 0 0 4px white;
+}
+
+.enter-vertical {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: bold;
+  font-size: 14px;
+  user-select: none;
+}
+
+.enter-horizontal {
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 50px;
+  height: 40px;
+  background: var(--key-bg);
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset 0 -4px 0 #0006;
+}
+
+/* ナビキー＋矢印を下段配置 */
+.nav-area {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: 10px;
+}
+
+.nav-area .row {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-area .key.small {
+  min-width: 48px;
+  min-height: 40px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* テンキー */
+.numpad {
+  width: 300px;
+}
+
+.numpad .row {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+/* テンキーのキー高さ修正 */
+.numpad .key {
+  background: var(--key-bg);
+  border-radius: 6px;
+  border: 1px solid #555;
+  color: var(--text-color);
+  padding: 0 12px;
+  margin-right: 6px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: inset 0 -4px 0 #0006;
+  cursor: pointer;
+  min-width: 48px;
+  min-height: 40px; /* 普通キー高さで統一 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+/* テンキーの+とEnterだけ縦長 */
+.numpad .key.tall {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.numpad .key.wide {
+  min-width: 104px;
+}
+
+/* アクティブ時 */
+.key.active, .numpad .key.active {
+  background: var(--key-active-bg);
+  box-shadow: 0 0 15px var(--glow);
+  color: white;
+  text-shadow: 0 0 4px white;
+}
+
+/* パーティクル */
+.particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--key-active-bg);
+  pointer-events: none;
+  opacity: 1;
+  animation: particle-move 1s ease forwards;
+  filter: drop-shadow(0 0 6px #fff);
+  mix-blend-mode: screen;
+}
+
+@keyframes particle-move {
+  to {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
